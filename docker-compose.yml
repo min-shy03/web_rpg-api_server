@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # 데이터베이스: PostgreSQL
+  db:
+    image: postgres:15
+    container_name: rpg_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 실시간 상태 관리: Redis
+  redis:
+    image: redis:7-alpine
+    container_name: rpg_redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
